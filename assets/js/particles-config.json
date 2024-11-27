@@ -51,7 +51,7 @@
       },
       "modes": {
         "repulse": {
-          "distance": 100,
+          "distance": 50,
           "duration": 0.4
         }
       }

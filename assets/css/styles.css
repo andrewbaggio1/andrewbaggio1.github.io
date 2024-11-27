@@ -37,3 +37,61 @@ nav a:hover {
 html {
     background-color: black;
 }
+
+/* Tile Styles */
+.tile {
+    background: rgba(255, 255, 255, 0.1); /* Transparent glassy effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 300px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Drop shadow for depth */
+    backdrop-filter: blur(10px); /* Glass blur effect */
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tile h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.tile p {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    color: white;
+}
+
+.tile a, .tile span {
+    font-size: 0.9rem;
+    color: #4ba8ff; /* Subtle link color */
+    text-decoration: none;
+}
+
+.tile a:hover {
+    text-decoration: underline;
+}
+
+.tile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Scrollable Container Styles */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+}

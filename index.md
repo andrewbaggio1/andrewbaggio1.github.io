@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Welcome to My Site
+title: index
 ---
 
 <div id="particles-js" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -1;"></div>
