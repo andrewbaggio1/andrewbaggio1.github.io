@@ -9,6 +9,5 @@ title: Welcome to My Site
         <a href="/about" style="color: white; margin: 0 1rem; text-decoration: none; font-size: 1.2rem;">About</a>
         <a href="/blog" style="color: white; margin: 0 1rem; text-decoration: none; font-size: 1.2rem;">Blog</a>
         <a href="/work" style="color: white; margin: 0 1rem; text-decoration: none; font-size: 1.2rem;">Work</a>
-        <a href="/development" style="color: white; margin: 0 1rem; text-decoration: none; font-size: 1.2rem;">In Development</a>
     </nav>
 </div>
