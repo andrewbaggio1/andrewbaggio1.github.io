@@ -1,0 +1,6 @@
+title: My GitHub Pages Site
+description: A simple site hosted on GitHub Pages using Jekyll
+baseurl: "" # If your site is at a subpath, e.g., /blog
+url: "https://yourusername.github.io" # Replace with your GitHub Pages URL
+theme: minima # You can choose other themes
+markdown: kramdown
