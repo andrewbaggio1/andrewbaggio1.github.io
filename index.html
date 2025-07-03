@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andrew Baggio | AI/ML Researcher</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap');
         
         * {
             margin: 0;
@@ -14,30 +14,33 @@
         }
         
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
             --text-primary: #ffffff;
             --text-secondary: #8e8e93;
             --text-tertiary: #48484a;
             --accent: #0a84ff;
             --glass-bg: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --blur: 30px;
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-edge: rgba(255, 255, 255, 0.12);
+            --blur: 40px;
             --glow-primary: #5e5ce6;
             --glow-secondary: #bf5af2;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            font-family: 'EB Garamond', -apple-system, serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            font-weight: 400;
+            letter-spacing: 0.02em;
         }
         
-        /* Foggy overlay effect */
+        /* Deep black gradient background */
         body::before {
             content: '';
             position: fixed;
@@ -45,23 +48,29 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
-                        radial-gradient(ellipse at bottom, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
+            background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+            z-index: -2;
         }
         
         /* Navigation */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            background: rgba(10, 10, 10, 0.7);
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            padding: 20px 40px;
+            background: var(--glass-bg);
             backdrop-filter: blur(var(--blur)) saturate(180%);
             -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
             z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 
+                inset 0 0 0 1px var(--glass-edge),
+                inset 0 0 20px rgba(94, 92, 230, 0.05),
+                0 20px 40px rgba(0, 0, 0, 0.8);
         }
         
         nav ul {
@@ -75,9 +84,8 @@
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 500;
-            letter-spacing: -0.02em;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
@@ -86,30 +94,7 @@
             color: var(--text-primary);
         }
         
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
         /* Hero Section */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, #0f0f0f 100%);
-            z-index: -1;
-        }
-        
         .hero {
             height: 100vh;
             display: flex;
@@ -122,76 +107,12 @@
         }
         
         .hero h1 {
-            font-size: clamp(48px, 8vw, 96px);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            margin-bottom: 16px;
-            position: relative;
-            display: inline-block;
-            
-            /* Glass text effect */
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                rgba(255, 255, 255, 0.05) 40%,
-                rgba(94, 92, 230, 0.1) 60%,
-                rgba(191, 90, 242, 0.1) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            
-            /* Glass-like properties */
-            text-shadow: 
-                0 1px 0 rgba(255, 255, 255, 0.1),
-                0 2px 4px rgba(0, 0, 0, 0.2),
-                0 10px 20px rgba(94, 92, 230, 0.1);
-            
-            /* For the light effect */
-            z-index: 10;
-        }
-        
-        .hero h1::before {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0.3;
-            filter: blur(0.5px);
-        }
-        
-        .hero h1::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(255, 255, 255, 0.4) 0%, 
-                rgba(94, 92, 230, 0.3) 20%,
-                rgba(191, 90, 242, 0.2) 40%,
-                transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 1;
-            filter: blur(20px);
-            mix-blend-mode: screen;
-        }
-        
-        .hero h1.light-active::after {
-            opacity: 1;
-        }
-        
-        .hero h1 span {
-            position: relative;
-            display: inline-block;
-            transition: all 0.3s ease;
+            font-size: clamp(60px, 10vw, 120px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
         }
         
         .subtitle {
@@ -199,11 +120,11 @@
             font-weight: 400;
             color: var(--text-secondary);
             margin-bottom: 48px;
-            letter-spacing: -0.02em;
+            letter-spacing: 0.05em;
         }
         
         .cta-button {
-            padding: 16px 32px;
+            padding: 18px 36px;
             background: var(--glass-bg);
             backdrop-filter: blur(var(--blur));
             -webkit-backdrop-filter: blur(var(--blur));
@@ -212,32 +133,41 @@
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 16px;
+            font-size: 18px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 
+                inset 0 0 0 1px var(--glass-edge),
+                inset 0 -2px 10px rgba(94, 92, 230, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.5);
         }
         
         .cta-button::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(10, 132, 255, 0.2) 0%, transparent 70%);
+            bottom: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, var(--glow-primary) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.3s;
+            filter: blur(20px);
         }
         
         .cta-button:hover {
             transform: translateY(-2px);
-            border-color: rgba(10, 132, 255, 0.3);
-            box-shadow: 0 10px 40px rgba(10, 132, 255, 0.2);
+            border-color: var(--glass-edge);
+            box-shadow: 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 -2px 20px rgba(94, 92, 230, 0.2),
+                0 20px 40px rgba(0, 0, 0, 0.6);
         }
         
         .cta-button:hover::before {
-            opacity: 1;
+            opacity: 0.3;
         }
         
         /* Sections */
@@ -250,239 +180,209 @@
         }
         
         .section-title {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 600;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.02em;
             margin-bottom: 64px;
             text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease-out forwards;
         }
         
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* About Section */
+        /* About Section - Thick Glass Container */
         .about-content {
             background: var(--glass-bg);
-            backdrop-filter: blur(var(--blur)) saturate(150%);
-            -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
-            padding: 48px;
-            border-radius: 24px;
-            border: 1px solid var(--glass-border);
-            font-size: 18px;
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            padding: 60px;
+            border-radius: 30px;
+            border: 2px solid var(--glass-border);
+            font-size: 20px;
             line-height: 1.8;
             color: var(--text-secondary);
             position: relative;
             overflow: hidden;
             box-shadow: 
-                inset 0 0 60px rgba(94, 92, 230, 0.1),
-                0 20px 80px -20px rgba(94, 92, 230, 0.5),
-                0 40px 120px -40px rgba(191, 90, 242, 0.3);
+                inset 0 0 0 2px var(--glass-edge),
+                inset 0 0 40px rgba(94, 92, 230, 0.05),
+                0 30px 60px rgba(0, 0, 0, 0.5);
         }
         
         .about-content::before {
             content: '';
             position: absolute;
-            bottom: -50%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 150%;
-            height: 100%;
-            background: radial-gradient(ellipse at center, var(--glow-primary) 0%, var(--glow-secondary) 25%, transparent 70%);
-            opacity: 0.15;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse at center, var(--glow-primary) 0%, var(--glow-secondary) 40%, transparent 70%);
+            opacity: 0.08;
             filter: blur(60px);
-            animation: pulse 8s ease-in-out infinite;
         }
         
-        @keyframes pulse {
-            0%, 100% { 
-                opacity: 0.15;
-                transform: translateX(-50%) scale(1);
-            }
-            50% { 
-                opacity: 0.25;
-                transform: translateX(-50%) scale(1.1);
-            }
-        }
-        
-        /* Projects Grid */
+        /* Projects Grid - Glass Cards with Thick Edges */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 24px;
+            gap: 30px;
             margin-top: 48px;
         }
         
         .project-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(var(--blur)) saturate(150%);
-            -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 32px;
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 2px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             box-shadow: 
-                inset 0 0 40px rgba(94, 92, 230, 0.05),
-                0 10px 60px -10px rgba(94, 92, 230, 0.3);
+                inset 0 0 0 2px var(--glass-edge),
+                inset 0 0 30px rgba(94, 92, 230, 0.03),
+                0 20px 40px rgba(0, 0, 0, 0.4);
         }
         
         .project-card::before {
             content: '';
             position: absolute;
-            bottom: -100px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 120%;
-            height: 200px;
-            background: radial-gradient(ellipse at center, var(--glow-primary) 0%, var(--glow-secondary) 40%, transparent 70%);
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(ellipse at center, var(--glow-primary) 0%, transparent 60%);
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             filter: blur(40px);
         }
         
         .project-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(94, 92, 230, 0.3);
+            transform: translateY(-8px);
+            border-color: var(--glass-edge);
             box-shadow: 
-                inset 0 0 60px rgba(94, 92, 230, 0.1),
-                0 20px 80px -10px rgba(94, 92, 230, 0.5),
-                0 40px 120px -20px rgba(191, 90, 242, 0.3);
+                inset 0 0 0 2px rgba(255, 255, 255, 0.1),
+                inset 0 0 50px rgba(94, 92, 230, 0.08),
+                0 30px 60px rgba(0, 0, 0, 0.5);
         }
         
         .project-card:hover::before {
-            opacity: 0.3;
-            bottom: -50px;
+            opacity: 0.15;
         }
         
         .project-title {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 600;
             margin-bottom: 16px;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
         }
         
         .project-card p {
             color: var(--text-secondary);
-            font-size: 16px;
-            line-height: 1.6;
+            font-size: 18px;
+            line-height: 1.7;
             margin-bottom: 24px;
         }
         
         .project-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
         
         .tech-tag {
-            padding: 6px 12px;
-            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
             border-radius: 100px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--text-secondary);
             transition: all 0.3s;
+            letter-spacing: 0.02em;
         }
         
         .tech-tag:hover {
-            background: rgba(10, 132, 255, 0.2);
+            background: rgba(94, 92, 230, 0.1);
+            border-color: rgba(94, 92, 230, 0.3);
             color: var(--text-primary);
         }
         
         /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
             margin-top: 48px;
         }
         
         .skill-item {
             background: var(--glass-bg);
-            backdrop-filter: blur(var(--blur)) saturate(150%);
-            -webkit-backdrop-filter: blur(var(--blur)) saturate(150%);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 24px;
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 2px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
             transition: all 0.3s;
+            box-shadow: 
+                inset 0 0 0 1px var(--glass-edge),
+                inset 0 0 20px rgba(94, 92, 230, 0.02),
+                0 10px 20px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
-            box-shadow: 
-                inset 0 0 30px rgba(94, 92, 230, 0.03),
-                0 10px 40px -10px rgba(94, 92, 230, 0.2);
         }
         
-        .skill-item::after {
+        .skill-item::before {
             content: '';
             position: absolute;
-            bottom: -50px;
+            bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
-            height: 100px;
-            background: radial-gradient(ellipse at center, var(--glow-primary) 0%, transparent 60%);
+            width: 60%;
+            height: 60px;
+            background: radial-gradient(ellipse at center, var(--glow-primary) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s;
-            filter: blur(30px);
+            filter: blur(20px);
         }
         
         .skill-item:hover {
-            border-color: rgba(94, 92, 230, 0.3);
             transform: translateY(-4px);
+            border-color: var(--glass-edge);
             box-shadow: 
-                inset 0 0 40px rgba(94, 92, 230, 0.05),
-                0 15px 60px -10px rgba(94, 92, 230, 0.3);
+                inset 0 0 0 2px rgba(255, 255, 255, 0.1),
+                inset 0 0 30px rgba(94, 92, 230, 0.05),
+                0 15px 30px rgba(0, 0, 0, 0.4);
         }
         
-        .skill-item:hover::after {
-            opacity: 0.2;
+        .skill-item:hover::before {
+            opacity: 0.1;
         }
         
         .skill-name {
             font-weight: 500;
             margin-bottom: 12px;
             color: var(--text-primary);
+            font-size: 18px;
         }
         
         .skill-bar {
             width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
             overflow: hidden;
             position: relative;
+            box-shadow: inset 0 0 0 1px var(--glass-border);
         }
         
         .skill-progress {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent) 0%, rgba(10, 132, 255, 0.6) 100%);
-            border-radius: 3px;
+            background: linear-gradient(90deg, var(--glow-primary) 0%, var(--glow-secondary) 100%);
+            border-radius: 4px;
             transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-        }
-        
-        .skill-progress::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 40px;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4));
-            animation: shine 2s infinite;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-40px); }
-            100% { transform: translateX(40px); }
+            box-shadow: 0 0 20px rgba(94, 92, 230, 0.4);
         }
         
         /* Contact Section */
@@ -491,7 +391,7 @@
         }
         
         .contact-content p {
-            font-size: 20px;
+            font-size: 24px;
             color: var(--text-secondary);
             margin-bottom: 48px;
         }
@@ -504,22 +404,50 @@
         }
         
         .contact-link {
-            padding: 16px 32px;
+            padding: 18px 36px;
             background: var(--glass-bg);
             backdrop-filter: blur(var(--blur));
             -webkit-backdrop-filter: blur(var(--blur));
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
+            border: 2px solid var(--glass-border);
+            border-radius: 18px;
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
+            font-size: 18px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                inset 0 0 0 1px var(--glass-edge),
+                inset 0 0 20px rgba(94, 92, 230, 0.02),
+                0 10px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 60px;
+            background: radial-gradient(ellipse at center, var(--glow-primary) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            filter: blur(20px);
         }
         
         .contact-link:hover {
             transform: translateY(-4px);
-            border-color: rgba(10, 132, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(10, 132, 255, 0.2);
+            border-color: var(--glass-edge);
+            box-shadow: 
+                inset 0 0 0 2px rgba(255, 255, 255, 0.1),
+                inset 0 0 30px rgba(94, 92, 230, 0.05),
+                0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .contact-link:hover::before {
+            opacity: 0.15;
         }
         
         /* Footer */
@@ -528,12 +456,13 @@
             padding: 48px 20px;
             border-top: 1px solid var(--glass-border);
             color: var(--text-tertiary);
-            font-size: 14px;
+            font-size: 16px;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             nav {
+                width: 95%;
                 padding: 16px 24px;
             }
             
@@ -542,20 +471,20 @@
             }
             
             .hero h1 {
-                font-size: 48px;
+                font-size: 60px;
             }
             
             .section-title {
-                font-size: 36px;
+                font-size: 40px;
             }
             
             .projects-grid {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                gap: 20px;
             }
             
             .about-content {
-                padding: 32px 24px;
+                padding: 40px 30px;
             }
         }
         
@@ -566,7 +495,7 @@
         
         /* Selection color */
         ::selection {
-            background: rgba(10, 132, 255, 0.3);
+            background: rgba(94, 92, 230, 0.3);
             color: var(--text-primary);
         }
     </style>
@@ -582,11 +511,9 @@
         </ul>
     </nav>
     
-    <div id="particles-js"></div>
-    
     <section id="home" class="hero">
-        <h1 data-text="Andrew Baggio" id="glass-name">Andrew Baggio</h1>
-        <p class="subtitle">AI/ML Researcher</p>
+        <h1>Andrew Baggio</h1>
+        <p class="subtitle">Aspiring AI/ML Researcher</p>
         <a href="#projects" class="cta-button">View My Work</a>
     </section>
     
@@ -594,11 +521,15 @@
         <h2 class="section-title">About</h2>
         <div class="about-content">
             <p>
-                I'm an AI/ML researcher passionate about pushing the boundaries of artificial intelligence through innovative approaches to complex problems. My work spans from developing sophisticated health applications with cognitive wellness features to creating AI-driven trading models and advancing swarm robotics research.
+                "Any sufficiently advanced technology is indistinguishable from magic." - Arthur C. Clarke
             </p>
             <br>
             <p>
-                Currently, I'm exploring the intersection of specialized AI agents and alignment properties, investigating how task-specific, efficient models might alter our understanding of AI safety and capabilities. My research combines theoretical insights with practical implementations across diverse domains including RNA structure prediction, high-frequency trading, and real-time robotic systems.
+                I'm an aspiring AI/ML researcher passionate about developing and scaling magic. My work spans from developing sophisticated health applications with cognitive wellness features to creating AI-driven trading models and advancing swarm robotics research.
+            </p>
+            <br>
+            <p>
+                Currently, I'm exploring specialized AI agents and alignment properties, investigating how task-specific, efficient models might alter our understanding of AI safety. And my research combines theoretical insights with practical implementations across diverse domains including RNA structure prediction, high-frequency trading, and real-time robotic systems.
             </p>
         </div>
     </section>
@@ -732,88 +663,10 @@
     </section>
     
     <footer>
-        <p>&copy; 2025 Andrew Baggio. Crafted with precision.</p>
+        <p>&copy; 2025 </p>
     </footer>
     
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Particles.js configuration - foggy morning effect
-        particlesJS('particles-js', {
-            particles: {
-                number: {
-                    value: 80,
-                    density: {
-                        enable: true,
-                        value_area: 1000
-                    }
-                },
-                color: {
-                    value: '#ffffff'
-                },
-                shape: {
-                    type: 'circle'
-                },
-                opacity: {
-                    value: 0.03,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 0.5,
-                        opacity_min: 0.01,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 50,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 1,
-                        size_min: 10,
-                        sync: false
-                    }
-                },
-                line_linked: {
-                    enable: false
-                },
-                move: {
-                    enable: true,
-                    speed: 0.2,
-                    direction: 'none',
-                    random: true,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false,
-                    attract: {
-                        enable: false
-                    }
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: 'bubble'
-                    },
-                    onclick: {
-                        enable: false
-                    },
-                    resize: true
-                },
-                modes: {
-                    bubble: {
-                        distance: 200,
-                        size: 60,
-                        duration: 2,
-                        opacity: 0.05,
-                        speed: 3
-                    }
-                }
-            },
-            retina_detect: true
-        });
-        
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -866,65 +719,6 @@
                 hero.style.opacity = 1 - scrolled / 800;
             }
         });
-        
-        // Glass name light effect
-        const glassName = document.getElementById('glass-name');
-        let mouseInName = false;
-        
-        if (glassName) {
-            // Split text into spans for individual letter effects
-            const text = glassName.textContent;
-            glassName.innerHTML = text.split('').map(char => 
-                char === ' ' ? ' ' : `<span>${char}</span>`
-            ).join('');
-            
-            glassName.addEventListener('mouseenter', () => {
-                mouseInName = true;
-                glassName.classList.add('light-active');
-            });
-            
-            glassName.addEventListener('mouseleave', () => {
-                mouseInName = false;
-                glassName.classList.remove('light-active');
-                glassName.style.setProperty('--mouse-x', '50%');
-                glassName.style.setProperty('--mouse-y', '50%');
-            });
-            
-            glassName.addEventListener('mousemove', (e) => {
-                if (!mouseInName) return;
-                
-                const rect = glassName.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                
-                glassName.style.setProperty('--mouse-x', `${x}%`);
-                glassName.style.setProperty('--mouse-y', `${y}%`);
-                
-                // Light diffusion effect on individual letters
-                const spans = glassName.querySelectorAll('span');
-                spans.forEach((span, index) => {
-                    const spanRect = span.getBoundingClientRect();
-                    const spanCenterX = spanRect.left + spanRect.width / 2;
-                    const spanCenterY = spanRect.top + spanRect.height / 2;
-                    
-                    const distance = Math.sqrt(
-                        Math.pow(e.clientX - spanCenterX, 2) + 
-                        Math.pow(e.clientY - spanCenterY, 2)
-                    );
-                    
-                    const maxDistance = 150;
-                    const intensity = Math.max(0, 1 - distance / maxDistance);
-                    
-                    span.style.textShadow = `
-                        0 0 ${10 + intensity * 20}px rgba(255, 255, 255, ${0.3 + intensity * 0.4}),
-                        0 0 ${20 + intensity * 40}px rgba(94, 92, 230, ${0.2 + intensity * 0.3}),
-                        0 0 ${30 + intensity * 60}px rgba(191, 90, 242, ${0.1 + intensity * 0.2})
-                    `;
-                    span.style.transform = `translateY(${-intensity * 2}px) scale(${1 + intensity * 0.05})`;
-                    span.style.filter = `brightness(${1 + intensity * 0.5})`;
-                });
-            });
-        }
     </script>
 </body>
 </html>
