@@ -73,6 +73,34 @@
             color: #cccccc;
         }
 
+        .projects a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            border-bottom: 1px solid #ffffff;
+            transition: opacity 0.3s;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .projects a:hover {
+            opacity: 0.7;
+        }
+
+        .projects h3 a {
+            color: #ffffff;
+            text-decoration: none;
+            border-bottom: 1px solid #ffffff;
+            transition: opacity 0.3s;
+            font-size: 24px;
+            margin-top: 0;
+            cursor: pointer;
+        }
+
+        .projects h3 a:hover {
+            opacity: 0.7;
+        }
+
         .socials {
             list-style: none;
             display: flex;
@@ -96,12 +124,101 @@
             opacity: 0.7;
         }
 
-        .easter-egg {
-            font-size: 8px;
+        .image-viewer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-viewer-overlay.active {
+            display: flex;
+        }
+
+        .image-viewer {
+            background-color: #000000;
+            width: 40%;
+            max-width: 650px;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .image-viewer-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 32px;
             color: #ffffff;
-            text-align: center;
-            margin-top: 100px;
-            padding-bottom: 20px;
+            cursor: pointer;
+            font-family: "Apple Garamond", "Garamond", "Times New Roman", serif;
+            font-weight: normal;
+            line-height: 1;
+            transition: opacity 0.3s;
+        }
+
+        .image-viewer-close:hover {
+            opacity: 0.7;
+        }
+
+        .image-viewer-container {
+            width: 100%;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-viewer-slides {
+            display: flex;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+
+        .image-viewer-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-viewer img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .image-viewer-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .image-viewer-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #666666;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .image-viewer-dot.active {
+            background-color: #ffffff;
+        }
+
+        body.viewer-open {
+            overflow: hidden;
         }
 
         @media (max-width: 768px) {
@@ -141,11 +258,11 @@
                 <p>An innovative UGC app I helped build during my internship at Whop this summmer.</p>
             </li>
             <li>
-                <h3>Euno</h3>
+                <h3><a href="#" id="euno-link">Euno</a></h3>
                 <p>Aha moments are rare but beautiful. What if there was an app that gave you an aha moment every day?</p>
             </li>
             <li>
-                <h3>a Pokemon Red RL Agent</h3>
+                <h3><a href="https://github.com/andrewbaggio1/PokemonRedExperiments" target="_blank">a Pokemon Red RL Agent</a></h3>
                 <p>The human brain is stupid. We all have one, but it doesn't tell us how it works. I'm making an RL agent that plays Pokemon Red; it uses a new architecture that simulates digital neurochemicals.</p>
             </li>
         </ul>
@@ -160,9 +277,129 @@
         </ul>
     </section>
 
-    <p class="easter-egg">
-        This website is pure HTML. Black background, white Apple Garamond font. It's beautiful.
-    </p>
+    <div class="image-viewer-overlay" id="image-viewer-overlay">
+        <div class="image-viewer" id="image-viewer">
+            <div class="image-viewer-close" id="close-viewer">×</div>
+            <div class="image-viewer-container">
+                <div class="image-viewer-slides" id="image-slides"></div>
+            </div>
+            <div class="image-viewer-dots" id="image-dots"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const eunoLink = document.getElementById('euno-link');
+            const imageViewerOverlay = document.getElementById('image-viewer-overlay');
+            const imageViewer = document.getElementById('image-viewer');
+            const closeButton = document.getElementById('close-viewer');
+            const imageSlides = document.getElementById('image-slides');
+            const imageDots = document.getElementById('image-dots');
+            
+            const images = [
+                'images/today.png',
+                'images/euno.png',
+                'images/euno-chat.png',
+                'images/psyche.png'
+            ];
+
+            let currentIndex = 0;
+
+            function createDots() {
+                imageDots.innerHTML = '';
+                images.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'image-viewer-dot';
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(index));
+                    imageDots.appendChild(dot);
+                });
+            }
+
+            function updateDots() {
+                const dots = imageDots.querySelectorAll('.image-viewer-dot');
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                imageSlides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                updateDots();
+            }
+
+            function nextSlide() {
+                if (currentIndex < images.length - 1) {
+                    goToSlide(currentIndex + 1);
+                }
+            }
+
+            function prevSlide() {
+                if (currentIndex > 0) {
+                    goToSlide(currentIndex - 1);
+                }
+            }
+
+            function openViewer() {
+                imageSlides.innerHTML = '';
+                images.forEach(src => {
+                    const slide = document.createElement('div');
+                    slide.className = 'image-viewer-slide';
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = 'Euno screenshot';
+                    slide.appendChild(img);
+                    imageSlides.appendChild(slide);
+                });
+                currentIndex = 0;
+                imageSlides.style.transform = 'translateX(0)';
+                createDots();
+                imageViewerOverlay.classList.add('active');
+                document.body.classList.add('viewer-open');
+            }
+
+            function closeViewer() {
+                imageViewerOverlay.classList.remove('active');
+                document.body.classList.remove('viewer-open');
+            }
+
+            if (eunoLink) {
+                eunoLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openViewer();
+                });
+            }
+
+            if (closeButton) {
+                closeButton.addEventListener('click', closeViewer);
+            }
+
+            if (imageViewerOverlay) {
+                imageViewerOverlay.addEventListener('click', function(e) {
+                    if (e.target === imageViewerOverlay) {
+                        closeViewer();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (imageViewerOverlay && imageViewerOverlay.classList.contains('active')) {
+                    if (e.key === 'Escape') {
+                        closeViewer();
+                    } else if (e.key === 'ArrowLeft') {
+                        prevSlide();
+                    } else if (e.key === 'ArrowRight') {
+                        nextSlide();
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 
